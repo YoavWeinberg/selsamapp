@@ -7,3 +7,14 @@ var port = process.env.PORT || 3000;
 app.listen(port, function(){
 console.log("Running on port " + port);
 });
+
+app.get('/insert', function(req, res, next){
+var p1 = {title:"first title", description:"first desc", created: new Date()};
+var newItem = new CurrentProduct(p1);
+    newItem.save(function(err, item){
+        if(err){
+            next(err);
+        }
+        res.json({product:item});
+    });//end of save
+});
